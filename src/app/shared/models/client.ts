@@ -17,11 +17,5 @@ export class Client {
 
     public isEmpty() {
         return this === undefined || Object.keys(this).length === 0;
-        // for (const key in this) {
-        //     if (this.hasOwnProperty(key)) {
-        //         return false;
-        //     }
-        // }
-        // return true;
     }
 }

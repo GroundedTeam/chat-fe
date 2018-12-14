@@ -28,16 +28,15 @@ export class ChatComponent implements OnInit {
     ngOnInit() {
         this.chatService.messages.subscribe(data => {
             if (data.type === 'user') {
-                this.user = data.user;
+                this.user = new Client(data.user);
 
                 this.username = this.user.username;
             } else if (data.type === 'new-message') {
-                console.log(['new message', data.text]);
-
-                // const newString = data.text
-                //     .substr(0, data.text.length - 1)
-                //     .substr(1);
-                // this.printMessage('income-message', 'Someone', newString);
+                this.printMessage(
+                    new Client(data.content.sender),
+                    data.content.text,
+                    data.content.time
+                );
             }
         });
 
@@ -50,16 +49,27 @@ export class ChatComponent implements OnInit {
             this.chatService
                 .findChat(this.user.id, this.receiver.id)
                 .subscribe(room => {
+                    if (this.room) {
+                        this.chatService.leaveRoom({
+                            roomId: this.room.id,
+                        });
+                    }
                     if (room) {
                         this.room = room;
                         this.fetchMessagesFromRoom();
+                        this.chatService.joinRoom({
+                            roomId: this.room.id,
+                        });
                     } else {
                         // if no chat room -> create it
                         this.chatService
                             .createChat(this.user.id, this.receiver.id)
                             .subscribe(newRoom => {
                                 this.room = newRoom;
-                                this.fetchMessagesFromRoom();
+                                this.messagesArray = new Array<Message>();
+                                this.chatService.joinRoom({
+                                    roomId: this.room.id,
+                                });
                             });
                     }
                 });
@@ -68,8 +78,8 @@ export class ChatComponent implements OnInit {
 
     sendMessage() {
         this.chatService.sendMsg({
-            message: this.message,
-            receiver: this.user.id,
+            text: this.message,
+            senderId: this.user.id,
             roomId: this.room.id,
         });
         this.printMessage(this.user, this.message, new Date());
@@ -90,5 +100,9 @@ export class ChatComponent implements OnInit {
             .subscribe(messages => {
                 this.messagesArray = messages;
             });
+    }
+
+    myMessage() {
+        return true;
     }
 }

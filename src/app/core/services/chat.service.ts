@@ -22,10 +22,16 @@ export class ChatService {
         );
     }
 
-    // Our simplified interface for sending
-    // messages back to our socket.io server
     sendMsg(obj) {
-        this.messages.next(obj);
+        this.messages.next({ type: 'message', content: obj });
+    }
+
+    joinRoom(obj) {
+        this.messages.next({ type: 'join-room', content: obj });
+    }
+
+    leaveRoom(obj) {
+      this.messages.next({ type: 'leave-room', content: obj });
     }
 
     findChat(senderId, receiverId): Observable<Room> {

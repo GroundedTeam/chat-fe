@@ -13,17 +13,17 @@ export class ContactListComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private dataService: DataService,
+        private chatService: ChatService
     ) {}
 
-    public allContacts: Array<Client>;
+    public status = 1;
     public contacts: Array<Client>;
 
     fetchContacts() {
         this.http
             .get<Array<Client>>('http://localhost:3000/api/users/all')
             .subscribe(contacts => {
-                this.allContacts = contacts.map(contact => new Client(contact));
-                this.showOnline();
+                this.contacts = contacts.map(contact => new Client(contact));
             });
     }
 
@@ -32,16 +32,40 @@ export class ContactListComponent implements OnInit {
     }
 
     showOnline() {
-        this.contacts = this.allContacts.filter(contact => {
-            return contact.status === 1;
-        });
+        this.status = 1;
     }
 
     showAll() {
-        this.contacts = this.allContacts;
+        this.status = 0;
     }
 
     ngOnInit() {
         this.fetchContacts();
+
+        this.chatService.messages.subscribe(data => {
+            if (data.type === 'connected-user') {
+                const clientModel = new Client(data.user);
+                const userExist = this.changeStatusClient(clientModel, 1);
+                if (!userExist) {
+                    const newContacts = [...this.contacts, clientModel];
+                    this.contacts = newContacts;
+                }
+            } else if (data.type === 'disconnected-user') {
+                this.changeStatusClient(new Client(data.user), 0);
+                // reassigning array reference to make pipe work
+                this.contacts = [...this.contacts];
+            }
+        });
+    }
+
+    private changeStatusClient(client: Client, status: number) {
+        return this.contacts.find((element, id) => {
+            if (element.id === client.id) {
+                this.contacts[id].status = status;
+
+                return true;
+            }
+            return false;
+        });
     }
 }

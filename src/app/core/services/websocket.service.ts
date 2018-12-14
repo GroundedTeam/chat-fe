@@ -13,33 +13,24 @@ export class WebsocketService {
     constructor() {}
 
     connect(): Rx.Subject<MessageEvent> {
-        const userId = localStorage.getItem('userId');
-        if (userId) {
-            console.log('Log with userId');
-
-            this.socket = io(environment.ws_url, { query: `userId=${userId}` });
-        } else {
-            console.log('New user');
-
-            this.socket = io(environment.ws_url);
-        }
+        this.socket = io(environment.ws_url);
 
         // We define our observable which will observe any incoming messages
         // from our socket.io server.
         const observable = new Observable(subscriber => {
-            this.socket.on('message', data => {
-                console.log('Received message from Websocket Server');
+            this.socket.on('new-message', data => {
                 subscriber.next(data);
             });
 
             this.socket.on('register', data => {
-                console.log('Received register event for user');
-                localStorage.setItem('userId', data.user.id);
                 subscriber.next(data);
             });
 
-            this.socket.on('existing-user', data => {
-                console.log('Received existing user');
+            this.socket.on('new-user-connected', data => {
+                subscriber.next(data);
+            });
+
+            this.socket.on('user-disconnected', data => {
                 subscriber.next(data);
             });
 
@@ -52,8 +43,8 @@ export class WebsocketService {
         // from our other components and send messages back to our
         // socket server whenever the `next()` method is called.
         const observer = {
-            next: (data: Object) => {
-                this.socket.emit('message', JSON.stringify(data));
+            next: (data: any) => {
+                this.socket.emit(data.type, JSON.stringify(data.content));
             },
         };
 

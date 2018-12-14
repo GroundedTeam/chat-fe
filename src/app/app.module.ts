@@ -7,6 +7,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { MessageComponent } from './components/message/message.component';
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { OnlinePipe } from './shared/pipes/online.pipe';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
         ChatComponent,
         MessageComponent,
         ContactListComponent,
+        OnlinePipe,
     ],
     imports: [BrowserModule, FormsModule, HttpClientModule],
     providers: [],

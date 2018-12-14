@@ -10,7 +10,7 @@
         </li>
     </ul>
     <ul class="list">
-        <li *ngFor="let contact of contacts" (click)="openDialog(contact)">
+        <li *ngFor="let contact of contacts|online:status" (click)="openDialog(contact)">
             <div class="img" [class.online]="contact.status">
                 <img
                     src="https://avatars.dicebear.com/v2/male/{{ contact.username }}.svg"

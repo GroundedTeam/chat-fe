@@ -9,8 +9,8 @@
                 <div class="message-container">
                     <app-message
                         *ngFor="let messageObject of messagesArray"
-                        [className]="class-name"
-                        [receiver]="receiver"
+                        [sender]="messageObject.sender"
+                        [user]="user"
                         [text]="messageObject.text"
                     ></app-message>
                 </div>
