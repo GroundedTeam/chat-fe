@@ -77,6 +77,10 @@ export class ChatComponent implements OnInit {
     }
 
     sendMessage() {
+        this.message = this.message.trim();
+        if (!this.message) {
+            return;
+        }
         this.chatService.sendMsg({
             text: this.message,
             senderId: this.user.id,
@@ -100,9 +104,5 @@ export class ChatComponent implements OnInit {
             .subscribe(messages => {
                 this.messagesArray = messages;
             });
-    }
-
-    myMessage() {
-        return true;
     }
 }

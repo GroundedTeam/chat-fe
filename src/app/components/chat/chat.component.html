@@ -22,11 +22,12 @@
                                 type="text"
                                 [(ngModel)]="message"
                                 placeholder="Start chatting!"
+                                (keydown.enter)="sendMessage()"
                             />
                         </div>
                         <button
                             class="btn btn-primary col-2"
-                            (click)="sendMessage('my-message', 'Me')"
+                            (click)="sendMessage()"
                         >
                             Send message
                         </button>
