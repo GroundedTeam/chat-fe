@@ -1,0 +1,24 @@
+<div class="contact-list">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" (click)="showOnline()">
+                Online
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" (click)="showAll()">All</a>
+        </li>
+    </ul>
+    <ul class="list">
+        <li *ngFor="let contact of contacts" (click)="openDialog(contact)">
+            <div class="img" [class.online]="contact.status">
+                <img
+                    src="https://avatars.dicebear.com/v2/male/{{ contact.username }}.svg"
+                    alt="avatar"
+                />
+            </div>
+
+            <span>{{ contact.username }}</span>
+        </li>
+    </ul>
+</div>

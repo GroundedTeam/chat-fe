@@ -1,0 +1,29 @@
+.chat-container {
+    height: 80vh;
+    .left-side {
+        padding-right: 0;
+    }
+    aside.right-side {
+        background-color: #fff;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+.chat {
+    background-color: #d7dfe7;
+    padding: 20px;
+    height: 100%;
+    .companion-info {
+        background-color: #becbd9;
+    }
+    .message-container {
+        margin-bottom: 20px;
+        height: 80%;
+    }
+    .input-container {
+        .input {
+            padding-right: 10px;
+        }
+        height: 20%;
+    }
+}

@@ -1,0 +1,41 @@
+<div class="chat-container">
+    <div class="row" style="height: 100%;">
+        <div class="col-9 left-side">
+            <div class="chat">
+                <section class="companion-info">
+                    <h5>I am {{ username }}</h5>
+                    <h2>Chat with {{ receiver.username }}</h2>
+                </section>
+                <div class="message-container">
+                    <app-message
+                        *ngFor="let messageObject of messagesArray"
+                        [className]="class-name"
+                        [receiver]="receiver"
+                        [text]="messageObject.text"
+                    ></app-message>
+                </div>
+                <div class="input-container">
+                    <div class="form-group row">
+                        <div class="input col-10">
+                            <input
+                                class="form-control"
+                                type="text"
+                                [(ngModel)]="message"
+                                placeholder="Start chatting!"
+                            />
+                        </div>
+                        <button
+                            class="btn btn-primary col-2"
+                            (click)="sendMessage('my-message', 'Me')"
+                        >
+                            Send message
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <aside class="col-3 right-side">
+            <app-contact-list></app-contact-list>
+        </aside>
+    </div>
+</div>

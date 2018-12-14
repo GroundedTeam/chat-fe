@@ -1,0 +1,22 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { MessageComponent } from './components/message/message.component';
+import { ContactListComponent } from './components/contact-list/contact-list.component';
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+    declarations: [
+        AppComponent,
+        ChatComponent,
+        MessageComponent,
+        ContactListComponent,
+    ],
+    imports: [BrowserModule, FormsModule, HttpClientModule],
+    providers: [],
+    bootstrap: [AppComponent],
+})
+export class AppModule {}
