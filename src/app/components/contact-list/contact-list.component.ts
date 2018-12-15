@@ -50,7 +50,6 @@ export class ContactListComponent implements OnInit {
             if (data.type === 'connected-user') {
                 data.user.status = 1;
                 const clientModel = new Client(data.user);
-                console.log('connected user');
                 const userExist = this.changeStatusClient(clientModel, 1);
                 if (!userExist) {
                     // reassigning array reference to make pipe work

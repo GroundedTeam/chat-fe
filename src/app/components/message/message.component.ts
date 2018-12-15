@@ -17,8 +17,7 @@ export class MessageComponent implements OnInit {
     }
 
     ngOnInit() {
-        const result = this.myMessage();
-        if (result) {
+        if (this.myMessage()) {
             this.className = 'my-message';
         } else {
             this.className = 'income-message';

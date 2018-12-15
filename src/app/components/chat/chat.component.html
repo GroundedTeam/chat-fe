@@ -6,7 +6,7 @@
                     <h5>I am {{ username }}</h5>
                     <h2>Chat with {{ receiver.username }}</h2>
                 </section>
-                <div class="message-container">
+                <div class="message-container" #container>
                     <app-message
                         *ngFor="let messageObject of messagesArray"
                         [sender]="messageObject.sender"

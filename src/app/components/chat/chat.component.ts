@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from 'src/app/core/services/chat.service';
 import { DataService } from 'src/app/core/services/data.service';
 import { Client } from 'src/app/shared/models/client';
@@ -12,6 +12,8 @@ import { Message } from 'src/app/shared/models/message';
     styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit {
+    @ViewChild('container') container: ElementRef;
+
     public username: string;
     public user = new Client();
     public receiver = new Client();
@@ -97,13 +99,32 @@ export class ChatComponent implements OnInit {
         newMessage.text = text;
         newMessage.createdAt = time;
         this.messagesArray.push(newMessage);
+        this.scrollToBottom();
     }
 
     private fetchMessagesFromRoom() {
         this.messageService
             .findMessagesInRoom(this.room.id)
             .subscribe(messages => {
-                this.messagesArray = messages;
+                this.messagesArray = messages.map((obj) => {
+                    const message = new Message();
+                    message.text = obj.text;
+                    message.sender = this.receiver;
+                    message.createdAt = obj.createdAt;
+
+                    if (obj.senderId === this.user.id) {
+                        message.sender = this.user;
+                    } else {
+                        message.sender = this.receiver;
+                    }
+
+                    return message;
+                });
+                this.scrollToBottom();
             });
+    }
+
+    private scrollToBottom() {
+        this.container.nativeElement.scrollTop = this.container.nativeElement.scrollHeight;
     }
 }

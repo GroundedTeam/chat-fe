@@ -11,7 +11,7 @@
 }
 .chat {
     background-color: #d7dfe7;
-    padding: 20px;
+    padding: 20px 20px 35px 20px;
     height: 100%;
     .companion-info {
         background-color: #becbd9;
@@ -19,6 +19,7 @@
     .message-container {
         margin-bottom: 20px;
         height: 80%;
+        overflow-y: scroll;
     }
     .input-container {
         .input {
