@@ -10,7 +10,9 @@ import { Observable } from 'rxjs';
 export class WebsocketService {
     // Our socket connection
     private socket;
-    constructor() {}
+
+    constructor() {
+    }
 
     connect(): Rx.Subject<MessageEvent> {
         this.socket = io(environment.ws_url);
@@ -31,6 +33,10 @@ export class WebsocketService {
             });
 
             this.socket.on('user-disconnected', data => {
+                subscriber.next(data);
+            });
+
+            this.socket.on('connection-list', data => {
                 subscriber.next(data);
             });
 

@@ -6,7 +6,7 @@ export class Client {
 
     constructor(client: Partial<Client> = {}) {
         if (Object.keys(client).length > 0) {
-            const { id, username, avatar, status } = client;
+            const { id, username, avatar, status = 0 } = client;
 
             this.id = id;
             this.username = username;

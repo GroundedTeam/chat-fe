@@ -13,17 +13,18 @@ import { Message } from 'src/app/shared/models/message';
 })
 export class ChatComponent implements OnInit {
     public username: string;
-    private user = new Client();
-    private receiver = new Client();
-    private message: string;
-    private messagesArray: Array<Message>;
+    public user = new Client();
+    public receiver = new Client();
+    public message: string;
+    public messagesArray: Array<Message>;
     private room: Room;
 
     constructor(
         private chatService: ChatService,
         private dataService: DataService,
-        private messageService: MessageService
-    ) {}
+        private messageService: MessageService,
+    ) {
+    }
 
     ngOnInit() {
         this.chatService.messages.subscribe(data => {
@@ -35,7 +36,7 @@ export class ChatComponent implements OnInit {
                 this.printMessage(
                     new Client(data.content.sender),
                     data.content.text,
-                    data.content.time
+                    data.content.time,
                 );
             }
         });

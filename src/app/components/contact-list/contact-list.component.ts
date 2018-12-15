@@ -13,17 +13,21 @@ export class ContactListComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private dataService: DataService,
-        private chatService: ChatService
-    ) {}
+        private chatService: ChatService,
+    ) {
+    }
 
     public status = 1;
     public contacts: Array<Client>;
 
     fetchContacts() {
         this.http
-            .get<Array<Client>>('http://localhost:3000/api/users/all')
+            .get<Array<Client>>('http://localhost:3000/api/users')
             .subscribe(contacts => {
                 this.contacts = contacts.map(contact => new Client(contact));
+                setTimeout(() => {
+                    this.chatService.checkOnline();
+                }, 1000);
             });
     }
 
@@ -44,15 +48,25 @@ export class ContactListComponent implements OnInit {
 
         this.chatService.messages.subscribe(data => {
             if (data.type === 'connected-user') {
+                data.user.status = 1;
                 const clientModel = new Client(data.user);
+                console.log('connected user');
                 const userExist = this.changeStatusClient(clientModel, 1);
                 if (!userExist) {
+                    // reassigning array reference to make pipe work
                     const newContacts = [...this.contacts, clientModel];
                     this.contacts = newContacts;
                 }
             } else if (data.type === 'disconnected-user') {
                 this.changeStatusClient(new Client(data.user), 0);
                 // reassigning array reference to make pipe work
+                this.contacts = [...this.contacts];
+            } else if (data.type === 'connection-list') {
+                this.contacts.map((contact) => {
+                    if (data.content.includes(contact.id)) {
+                        contact.status = 1;
+                    }
+                });
                 this.contacts = [...this.contacts];
             }
         });

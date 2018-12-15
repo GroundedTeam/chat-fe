@@ -7,11 +7,12 @@ import { Message } from 'src/app/shared/models/message';
     providedIn: 'root',
 })
 export class MessageService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     findMessagesInRoom(roomId): Observable<Array<Message>> {
         return this.http.get<Array<Message>>(
-            'http://localhost:3000/api/messages/' + roomId
+            'http://localhost:3000/api/messages/' + roomId,
         );
     }
 }

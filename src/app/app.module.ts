@@ -21,4 +21,5 @@ import { OnlinePipe } from './shared/pipes/online.pipe';
     providers: [],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

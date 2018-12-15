@@ -17,8 +17,8 @@ export class ChatService {
             map(
                 (response: any): any => {
                     return response;
-                }
-            )
+                },
+            ),
         );
     }
 
@@ -31,7 +31,11 @@ export class ChatService {
     }
 
     leaveRoom(obj) {
-      this.messages.next({ type: 'leave-room', content: obj });
+        this.messages.next({ type: 'leave-room', content: obj });
+    }
+
+    checkOnline() {
+        this.messages.next({ type: 'connection-list' });
     }
 
     findChat(senderId, receiverId): Observable<Room> {

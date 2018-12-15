@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Client } from 'src/app/shared/models/client';
-import { sendRequest } from 'selenium-webdriver/http';
 
 @Component({
     selector: 'app-message',
@@ -14,7 +13,8 @@ export class MessageComponent implements OnInit {
 
     className: string;
 
-    constructor() {}
+    constructor() {
+    }
 
     ngOnInit() {
         const result = this.myMessage();
