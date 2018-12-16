@@ -3,8 +3,12 @@
         <div class="col-9 left-side">
             <div class="chat">
                 <section class="companion-info">
-                    <h5>I am {{ username }}</h5>
-                    <h2>Chat with {{ receiver.username }}</h2>
+                    <div class="img-container">
+                        <img src="{{ receiver.avatar }}" alt="Avatar">
+                    </div>
+                    <div class="info-container">
+                        <span class="companion-username">{{ receiver.username }}</span>
+                    </div>
                 </section>
                 <div class="message-container" #container>
                     <app-message
@@ -16,7 +20,7 @@
                 </div>
                 <div class="input-container">
                     <div class="form-group row">
-                        <div class="input col-10">
+                        <div class="input col-8">
                             <input
                                 class="form-control"
                                 type="text"
@@ -25,12 +29,15 @@
                                 (keydown.enter)="sendMessage()"
                             />
                         </div>
-                        <button
-                            class="btn btn-primary col-2"
-                            (click)="sendMessage()"
-                        >
-                            Send message
-                        </button>
+                        <div class="col-4">
+                            <button
+                                class="btn btn-primary send-btn"
+                                (click)="sendMessage()"
+                            >
+                                <span class="send-btn-text">Send message</span>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
