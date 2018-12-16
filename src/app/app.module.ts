@@ -8,6 +8,7 @@ import { MessageComponent } from './components/message/message.component';
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OnlinePipe } from './shared/pipes/online.pipe';
+import { SearchPipe } from './shared/pipes/search.pipe';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { OnlinePipe } from './shared/pipes/online.pipe';
         MessageComponent,
         ContactListComponent,
         OnlinePipe,
+        SearchPipe,
     ],
     imports: [BrowserModule, FormsModule, HttpClientModule],
     providers: [],

@@ -10,7 +10,7 @@
         </li>
     </ul>
     <ul class="list">
-        <li *ngFor="let contact of contacts|online:status" (click)="openDialog(contact)">
+        <li *ngFor="let contact of contacts|online:status|search: searchUser" (click)="openDialog(contact)">
             <div class="img" [class.online]="contact.status">
                 <img
                     src="https://avatars.dicebear.com/v2/male/{{ contact.username }}.svg"
@@ -21,4 +21,8 @@
             <span>{{ contact.username }}</span>
         </li>
     </ul>
+
+    <div class="search-container">
+        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchUser">
+    </div>
 </div>

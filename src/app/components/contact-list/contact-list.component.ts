@@ -19,6 +19,7 @@ export class ContactListComponent implements OnInit {
 
     public status = 1;
     public contacts: Array<Client>;
+    public searchUser: string;
 
     fetchContacts() {
         this.http
