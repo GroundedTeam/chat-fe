@@ -57,6 +57,8 @@ export class ContactListComponent implements OnInit {
                     // reassigning array reference to make pipe work
                     const newContacts = [...this.contacts, clientModel];
                     this.contacts = newContacts;
+                } else {
+                    this.contacts = [...this.contacts];
                 }
             } else if (data.type === 'disconnected-user') {
                 this.changeStatusClient(new Client(data.user), 0);
