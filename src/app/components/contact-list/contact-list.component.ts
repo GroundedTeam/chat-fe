@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataService } from 'src/app/core/services/data.service';
 import { Client } from 'src/app/shared/models/client';
 import { ChatService } from 'src/app/core/services/chat.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-contact-list',
@@ -23,7 +24,7 @@ export class ContactListComponent implements OnInit {
 
     fetchContacts() {
         this.http
-            .get<Array<Client>>('http://localhost:3000/api/users')
+            .get<Array<Client>>(`${environment.api_url}/users`)
             .subscribe(contacts => {
                 this.contacts = contacts.map(contact => new Client(contact));
                 setTimeout(() => {

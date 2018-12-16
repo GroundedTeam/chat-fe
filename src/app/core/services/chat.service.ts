@@ -4,6 +4,7 @@ import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Room } from 'src/app/shared/models/room';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -38,8 +39,8 @@ export class ChatService {
         this.messages.next({ type: 'connection-list' });
     }
 
-    findChat(senderId, receiverId): Observable<Room> {
-        return this.http.get<Room>('http://localhost:3000/api/chats', {
+    findChat(senderId, receiverId): Observable<{ data: Room }> {
+        return this.http.get<{ data: Room }>(`${environment.api_url}/chats`, {
             params: {
                 senderId,
                 receiverId,
@@ -48,7 +49,7 @@ export class ChatService {
     }
 
     createChat(senderId, receiverId): Observable<Room> {
-        return this.http.post<Room>('http://localhost:3000/api/chats', {
+        return this.http.post<Room>(`${environment.api_url}/chats`, {
             senderId,
             receiverId,
         });
