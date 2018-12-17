@@ -80,8 +80,12 @@ export class ChatComponent implements OnInit {
     }
 
     sendMessage() {
-        this.message = this.message.trim();
         if (!this.message) {
+            return;
+        }
+        this.message = this.message.trim();
+        if (!this.receiver.id) {
+            alert('Choose participant first!');
             return;
         }
         this.chatService.sendMsg({

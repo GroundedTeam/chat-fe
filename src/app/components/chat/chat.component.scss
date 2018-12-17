@@ -9,12 +9,14 @@
         padding-right: 0;
     }
 }
+
 .chat {
     background-color: #d7dfe7;
     height: 100%;
     .companion-info {
         background-color: #becbd9;
         display: flex;
+        min-height: 170px;
         .img-container {
             margin-right: 24px;
             img {
