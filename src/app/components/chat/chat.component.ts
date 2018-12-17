@@ -51,7 +51,7 @@ export class ChatComponent implements OnInit {
             // find chat room
             this.chatService
                 .findChat(this.user.id, this.receiver.id)
-                .subscribe(({data: room}) => {
+                .subscribe(({ data: room }) => {
                     if (this.room) {
                         this.chatService.leaveRoom({
                             roomId: this.room.id,
@@ -88,7 +88,7 @@ export class ChatComponent implements OnInit {
             text: this.message,
             senderId: this.user.id,
             roomId: this.room.id,
-            receiverId: this.receiver.id
+            receiverId: this.receiver.id,
         });
         this.printMessage(this.user, this.message, new Date());
         this.message = '';
